@@ -6,13 +6,14 @@ metadata:
   name: longhorn-ingress
   namespace: longhorn-system
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web  
-    traefik.ingress.kubernetes.io/router.middlewares: longhorn-system-svc-longhorn-headers@kubernetescrd
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
 spec:
   rules:
   - http:
       paths:
-      - path: /longhornui
+      - path: /longhorn/
+        pathType: Prefix
         backend:
           serviceName: longhorn-frontend
           servicePort: 80
